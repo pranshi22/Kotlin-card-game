@@ -9,4 +9,8 @@ data class Player(
     fun deductBankRoll(points: Int){
         bankRoll -= points
     }
+
+    fun addAmountToBankRoll(points: Int){
+        bankRoll += points
+    }
 }
