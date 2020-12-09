@@ -8,7 +8,6 @@ class Game(val player: Player) {
         return hiddenCard
     }
 
-
     private val table1 = Table("Ego", 1)
     private val table2 = Table("Earth", 2)
     private val table3 = Table("Asgard", 5)
@@ -20,9 +19,22 @@ class Game(val player: Player) {
     )
 
     private var playerList = mutableListOf<Any>()
+
+    fun getPlayerList(): MutableList<Any> {
+        return playerList
+    }
+
     private var dealerList = mutableListOf<Any>()
 
+    fun getDealerList(): MutableList<Any> {
+        return dealerList
+    }
+
     private var playerTotal = 0
+
+    fun getPlayerTotal(): Int {
+        return playerTotal
+    }
 
     private var tableChoosed: Table = table1
 
