@@ -1,9 +1,13 @@
+import java.lang.Exception
+
 class Game(val player: Player) {
 
     private var hiddenCard: Any = ""
-        get() {
-            return hiddenCard
-        }
+
+    fun getHiddenCard(): Any {
+        return hiddenCard
+    }
+
 
     private val table1 = Table("Ego", 1)
     private val table2 = Table("Earth", 2)
@@ -43,12 +47,13 @@ class Game(val player: Player) {
 
         var distributeCards = deck.drawCards(4)
         hiddenCard = distributeCards[2]
+        println(hiddenCard)
 
         playerList.add(distributeCards[0])
         playerList.add(distributeCards[1])
         dealerList.add(distributeCards[3])
 
-        playerList?.forEach{
+        playerList.forEach{
             when(it){
                 is Int -> playerTotal += it
                 "King","Queen","Jack" -> playerTotal += 10
@@ -63,6 +68,7 @@ class Game(val player: Player) {
     }
 
     fun hit(){
+        println("******************************************")
         println("Player Choose to hit")
         println("******************************************")
         if (playerTotal>=21){
@@ -79,14 +85,17 @@ class Game(val player: Player) {
 
             initialCards.replace("Player", playerList)
             initialCards.replace("PlayerInHAnd", playerTotal)
-            println(initialCards)
             if (playerTotal > 21){
                 println("Dealer Wins!")
+                dealerList.add(getHiddenCard())
+                initialCards.replace("Dealer", dealerList)
             }
+            println(initialCards)
         }
     }
 
     fun stand(){
+        println("******************************************")
         println("Player choose to stand")
         println("******************************************")
         var dealerTotal = 0
@@ -98,15 +107,18 @@ class Game(val player: Player) {
                 "Ace" -> dealerTotal += if (dealerTotal+11 > 21) 1 else 11
             }
         }
-        while (playerTotal<=17){
+        while (dealerTotal<=17){
             var drawCard = deck.drawCards(1)[0]
             when(drawCard){
                 is Int -> dealerTotal += drawCard
                 "King","Queen","Jack" -> dealerTotal += 10
                 "Ace" -> dealerTotal += if (dealerTotal+11 > 21) 1 else 11
             }
+            dealerList.add(drawCard)
+            initialCards.replace("Dealer", dealerList)
         }
-        if (dealerTotal == playerTotal){
+        println(initialCards)
+        if (dealerTotal == playerTotal && playerTotal < 21){
             if (playerTotal == 21){
                 println("CheckMate")
             }
@@ -143,5 +155,9 @@ fun main() {
     val tables = game.getAvailableTables()
     println(tables)
     game.chooseTable(tables[2])
+    game.startGame()
+    game.hit()
+    game.stand()
+    println(player.bankRoll)
 
 }
