@@ -1,9 +1,13 @@
-import java.lang.Exception
-
 class Game(val player: Player) {
-
+    /**
+     * This is the main class from where our game will be started. This class will take care of
+     * all the rules and classes needed to play game.
+     * */
     private var hiddenCard: Any = ""
 
+    /**
+     * This function will return us hidden card
+     * */
     fun getHiddenCard(): Any {
         return hiddenCard
     }
@@ -20,28 +24,44 @@ class Game(val player: Player) {
 
     private var playerList = mutableListOf<Any>()
 
+    /**
+     * This function will return us list of the cards player has
+     * */
     fun getPlayerList(): MutableList<Any> {
         return playerList
     }
 
     private var dealerList = mutableListOf<Any>()
 
+    /**
+     * This function will return us cards which dealer has excluding hidden card before stand
+     * and including it after stand
+     * */
     fun getDealerList(): MutableList<Any> {
         return dealerList
     }
 
     private var playerTotal = 0
 
+    /**
+     * This function will return us total sum available in player's hand
+     * */
     fun getPlayerTotal(): Int {
         return playerTotal
     }
 
     private var tableChoosed: Table = table1
 
+    /**
+     * This function will return the user whichever tables are present
+     * */
     fun getAvailableTables(): List<String> {
         return listOf(table1.name,table2.name,table3.name,table4.name,table5.name)
     }
 
+    /**
+     * This function will allow the user the table on which he wants to play
+     * */
     fun chooseTable(name: String){
         when(name){
             "Ego" -> tableChoosed = table1
@@ -55,6 +75,10 @@ class Game(val player: Player) {
     }
     val deck = Card()
 
+    /**
+     * The game will be started once this is called. Both dealer and Player will be
+     * assigned with 2-2 players each
+     * */
     fun startGame(){
 
         var distributeCards = deck.drawCards(4)
@@ -79,6 +103,9 @@ class Game(val player: Player) {
 
     }
 
+    /**
+     * Once user will call this he will get one card in his hand
+     * */
     fun hit(){
         println("******************************************")
         println("Player Choose to hit")
@@ -106,6 +133,10 @@ class Game(val player: Player) {
         }
     }
 
+    /**
+     * Once the user calls this means he no more wants to draw the card. Now here dealer wil draw the cards
+     * until have sum of 17 or more in his hand. Then accordingly winner will be announced.
+     * */
     fun stand(){
         println("******************************************")
         println("Player choose to stand")
