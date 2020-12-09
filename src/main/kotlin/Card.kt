@@ -23,9 +23,3 @@ class Card {
         return cardList
     }
 }
-
-//fun main() {
-//    var card = Card()
-//    println(card.carDeck["2"]?.minus(1)?.let { card.carDeck.replace("2", it) })
-//    println(card.carDeck)
-//}

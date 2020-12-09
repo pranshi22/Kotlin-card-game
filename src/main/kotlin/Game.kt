@@ -1,7 +1,4 @@
-import  Player
-import Table
-
-class Game {
+class Game(val player: Player) {
 
     private var hiddenCard: Any = ""
         get() {
@@ -23,8 +20,22 @@ class Game {
 
     private var playerTotal = 0
 
-    fun getAvailableTables(): List<Table> {
-        return listOf(table1,table2,table3,table4,table5)
+    private var tableChoosed: Table = table1
+
+    fun getAvailableTables(): List<String> {
+        return listOf(table1.name,table2.name,table3.name,table4.name,table5.name)
+    }
+
+    fun chooseTable(name: String){
+        when(name){
+            "Ego" -> tableChoosed = table1
+            "Earth" -> tableChoosed = table2
+            "Asgard" -> tableChoosed = table3
+            "Vormir" -> tableChoosed = table4
+            "Titan" -> tableChoosed = table5
+        }
+
+        tableChoosed.enterTable(player)
     }
     val deck = Card()
 
@@ -105,19 +116,21 @@ class Game {
         }
         if (dealerTotal>playerTotal){
             if (dealerTotal > 21){
-                println("Dealer got busted. You win")
+                println("Dealer got busted. You win, Your winning amount is added to your bank roll")
+                tableChoosed.returnBet(player)
             }
             else{
-                println("Soryy!! You Lost!!")
+                println("Sorry!! You Lost!!")
             }
 
         }
         else{
             if (playerTotal > 21){
-                println("you got busted!! You Win!")
+                println("you got busted!! Dealer Win!")
             }
             else{
-                println("You Win!!")
+                println("You Win!! Your winning amount is added to your bank roll")
+                tableChoosed.returnBet(player)
             }
         }
     }
@@ -125,7 +138,9 @@ class Game {
 }
 
 fun main() {
-    var player = Player("pranshi.garg@hashedin.com", "hgdsg", 1500, "pranshi22")
-    var game = Game()
-    game.startGame()
+    var player = Player("tony.stark@marvel.com", "edward", 1500, "Iron Man")
+    var game = Game(player)
+    val tables = game.getAvailableTables()
+    println(tables)
+
 }
