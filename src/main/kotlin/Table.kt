@@ -5,7 +5,7 @@ import Player
 open class Table(val name: String, val betSize: Int) {
 
     fun enterTable(player: Player){
-        if (player.bankRoll <= betSize){
+        if (player.bankRoll >= betSize){
             player.deductBankRoll(betSize)
             println("You have successfully joined the table and bet points of $betSize is deducted from your bankRoll")
         }

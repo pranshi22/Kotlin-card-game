@@ -142,5 +142,6 @@ fun main() {
     var game = Game(player)
     val tables = game.getAvailableTables()
     println(tables)
+    game.chooseTable(tables[2])
 
 }
